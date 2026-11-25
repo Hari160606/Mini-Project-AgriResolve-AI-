@@ -1,0 +1,8 @@
+village_id,village_name,road_distance_km,est_travel_time_mins,road_condition,accessibility_tier,data_type,is_synthetic
+V_MDR_001,Maddur (Kasaba),1.8,6,Paved Highway (NH-275),Very Easy,Synthetic,True
+V_MDR_002,Shivapura,2.4,8,Paved Taluk Road,Very Easy,Synthetic,True
+V_MDR_003,Kadalur,8.5,22,Intermediate Rural Road,Moderate,Synthetic,True
+V_MDR_004,Alur,5.2,14,Paved Village Road,Easy,Synthetic,True
+V_MDR_005,Hemmanahalli,9.8,26,Narrow Gravel / Metalled Road,Moderate,Synthetic,True
+V_MDR_006,Chikkarasinakere,12.6,30,Major District Road (MDR),Moderate,Synthetic,True
+V_MDR_007,Besagarahalli,11.2,28,Paved MDR,Moderate,Synthetic,True

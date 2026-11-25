@@ -1,0 +1,7 @@
+crop_id,crop_name,botanical_name,kannada_name,season,duration_days,water_requirement_mm,drought_sensitivity,pest_vulnerability,priority_economic_weight,data_type,is_synthetic
+CRP_001,Sugarcane,Saccharum officinarum,ಕಬ್ಬು (Kabbu),Annual / Kharif-Rabi,360,1800,High,"Medium (Early shoot borer, Woolly aphid)",0.85,Real,False
+CRP_002,Paddy,Oryza sativa,ಭತ್ತ (Bhatta),Kharif,135,1250,Very High,"High (Stem borer, Leaf blast, Brown planthopper)",0.9,Real,False
+CRP_003,Finger Millet (Ragi),Eleusine coracana,ರಾಗಿ (Ragi),Kharif,115,450,Low,"Low (Blast, Stem borer)",0.75,Real,False
+CRP_004,Mulberry (Sericulture),Morus alba,ಹಿಪ್ಪುನೇರಳೆ (Hippunerale),Perennial,365,1000,Medium,"Medium (Thrips, Leaf roller, Tukra)",0.8,Real,False
+CRP_005,Red Gram (Tur / Pigeon Pea),Cajanus cajan,ತೊಗರಿ (Togari),Kharif,160,550,Medium,"High (Pod borer Helicoverpa armigera, Wilt)",0.7,Real,False
+CRP_006,Banana,Musa acuminata,ಬಾಳೆ (Baale),Annual,330,1600,High,"Medium (Panama wilt, Sigatoka leaf spot)",0.8,Real,False

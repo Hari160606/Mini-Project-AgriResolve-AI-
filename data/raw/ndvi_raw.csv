@@ -1,0 +1,85 @@
+observation_date,village_id,village_name,satellite,tile_id,mean_ndvi,cloud_cover_percent,qa_flag,data_type,is_synthetic
+2024-06-05,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.428,2.4,Clear / Valid Pixels,Real,False
+2024-06-20,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.415,1.5,Clear / Valid Pixels,Real,False
+2024-07-05,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.329,23.1,Cloud Contaminated,Real,False
+2024-07-20,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.424,4.3,Clear / Valid Pixels,Real,False
+2024-08-04,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.614,13.4,Clear / Valid Pixels,Real,False
+2024-08-19,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.645,21.3,Cloud Contaminated,Real,False
+2024-09-03,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.624,2.4,Clear / Valid Pixels,Real,False
+2024-09-18,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.647,2.1,Clear / Valid Pixels,Real,False
+2024-10-03,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.714,4.2,Clear / Valid Pixels,Real,False
+2024-10-18,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.76,2.9,Clear / Valid Pixels,Real,False
+2024-11-02,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.596,8.0,Clear / Valid Pixels,Real,False
+2024-11-17,V_MDR_001,Maddur (Kasaba),Sentinel-2 MSI (Level-2A),43PGP,0.574,7.4,Clear / Valid Pixels,Real,False
+2024-06-05,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.37,3.8,Clear / Valid Pixels,Real,False
+2024-06-20,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.37,0.7,Clear / Valid Pixels,Real,False
+2024-07-05,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.363,3.0,Clear / Valid Pixels,Real,False
+2024-07-20,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.373,15.8,Clear / Valid Pixels,Real,False
+2024-08-04,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.62,12.6,Clear / Valid Pixels,Real,False
+2024-08-19,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.6,19.0,Clear / Valid Pixels,Real,False
+2024-09-03,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.635,3.6,Clear / Valid Pixels,Real,False
+2024-09-18,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.605,6.1,Clear / Valid Pixels,Real,False
+2024-10-03,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.682,8.0,Clear / Valid Pixels,Real,False
+2024-10-18,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.727,8.5,Clear / Valid Pixels,Real,False
+2024-11-02,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.548,2.8,Clear / Valid Pixels,Real,False
+2024-11-17,V_MDR_002,Shivapura,Sentinel-2 MSI (Level-2A),43PGP,0.557,7.9,Clear / Valid Pixels,Real,False
+2024-06-05,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.276,2.9,Clear / Valid Pixels,Real,False
+2024-06-20,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.252,2.4,Clear / Valid Pixels,Real,False
+2024-07-05,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.285,6.1,Clear / Valid Pixels,Real,False
+2024-07-20,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.258,21.7,Cloud Contaminated,Real,False
+2024-08-04,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.273,22.8,Cloud Contaminated,Real,False
+2024-08-19,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.316,18.0,Clear / Valid Pixels,Real,False
+2024-09-03,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.249,7.7,Clear / Valid Pixels,Real,False
+2024-09-18,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.271,4.6,Clear / Valid Pixels,Real,False
+2024-10-03,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.438,7.2,Clear / Valid Pixels,Real,False
+2024-10-18,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.513,2.7,Clear / Valid Pixels,Real,False
+2024-11-02,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.376,3.0,Clear / Valid Pixels,Real,False
+2024-11-17,V_MDR_003,Kadalur,Sentinel-2 MSI (Level-2A),43PGP,0.344,4.2,Clear / Valid Pixels,Real,False
+2024-06-05,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.339,7.7,Clear / Valid Pixels,Real,False
+2024-06-20,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.378,8.4,Clear / Valid Pixels,Real,False
+2024-07-05,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.383,21.2,Cloud Contaminated,Real,False
+2024-07-20,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.406,12.5,Clear / Valid Pixels,Real,False
+2024-08-04,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.614,15.8,Clear / Valid Pixels,Real,False
+2024-08-19,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.703,15.7,Clear / Valid Pixels,Real,False
+2024-09-03,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.609,2.5,Clear / Valid Pixels,Real,False
+2024-09-18,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.579,8.0,Clear / Valid Pixels,Real,False
+2024-10-03,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.707,3.4,Clear / Valid Pixels,Real,False
+2024-10-18,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.683,3.9,Clear / Valid Pixels,Real,False
+2024-11-02,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.561,0.9,Clear / Valid Pixels,Real,False
+2024-11-17,V_MDR_004,Alur,Sentinel-2 MSI (Level-2A),43PGP,0.612,7.2,Clear / Valid Pixels,Real,False
+2024-06-05,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.232,7.2,Clear / Valid Pixels,Real,False
+2024-06-20,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.25,7.3,Clear / Valid Pixels,Real,False
+2024-07-05,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.268,14.3,Clear / Valid Pixels,Real,False
+2024-07-20,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.258,24.5,Cloud Contaminated,Real,False
+2024-08-04,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.252,16.5,Clear / Valid Pixels,Real,False
+2024-08-19,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.211,3.8,Clear / Valid Pixels,Real,False
+2024-09-03,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.291,8.4,Clear / Valid Pixels,Real,False
+2024-09-18,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.233,2.7,Clear / Valid Pixels,Real,False
+2024-10-03,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.499,4.6,Clear / Valid Pixels,Real,False
+2024-10-18,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.472,0.9,Clear / Valid Pixels,Real,False
+2024-11-02,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.326,0.6,Clear / Valid Pixels,Real,False
+2024-11-17,V_MDR_005,Hemmanahalli,Sentinel-2 MSI (Level-2A),43PGP,0.356,7.8,Clear / Valid Pixels,Real,False
+2024-06-05,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.359,5.6,Clear / Valid Pixels,Real,False
+2024-06-20,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.419,3.2,Clear / Valid Pixels,Real,False
+2024-07-05,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.34,7.7,Clear / Valid Pixels,Real,False
+2024-07-20,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.409,20.2,Cloud Contaminated,Real,False
+2024-08-04,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.645,16.9,Clear / Valid Pixels,Real,False
+2024-08-19,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.607,17.0,Clear / Valid Pixels,Real,False
+2024-09-03,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.589,1.9,Clear / Valid Pixels,Real,False
+2024-09-18,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.626,0.6,Clear / Valid Pixels,Real,False
+2024-10-03,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.717,3.5,Clear / Valid Pixels,Real,False
+2024-10-18,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.715,8.3,Clear / Valid Pixels,Real,False
+2024-11-02,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.52,7.3,Clear / Valid Pixels,Real,False
+2024-11-17,V_MDR_006,Chikkarasinakere,Sentinel-2 MSI (Level-2A),43PGP,0.602,5.8,Clear / Valid Pixels,Real,False
+2024-06-05,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.224,8.9,Clear / Valid Pixels,Real,False
+2024-06-20,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.24,7.3,Clear / Valid Pixels,Real,False
+2024-07-05,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.281,14.3,Clear / Valid Pixels,Real,False
+2024-07-20,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.274,26.2,Cloud Contaminated,Real,False
+2024-08-04,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.423,18.4,Clear / Valid Pixels,Real,False
+2024-08-19,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.418,18.9,Clear / Valid Pixels,Real,False
+2024-09-03,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.435,8.1,Clear / Valid Pixels,Real,False
+2024-09-18,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.43,2.3,Clear / Valid Pixels,Real,False
+2024-10-03,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.445,2.6,Clear / Valid Pixels,Real,False
+2024-10-18,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.457,3.9,Clear / Valid Pixels,Real,False
+2024-11-02,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.374,1.4,Clear / Valid Pixels,Real,False
+2024-11-17,V_MDR_007,Besagarahalli,Sentinel-2 MSI (Level-2A),43PGP,0.365,8.4,Clear / Valid Pixels,Real,False

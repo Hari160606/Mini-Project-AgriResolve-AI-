@@ -1,0 +1,5 @@
+staff_id,name,role,designation,jurisdiction,phone_masked,status,active_inspections_count,max_weekly_capacity,data_type,is_synthetic
+STF_001,Dr. Ramesh Gowda,AO (Agriculture Officer),"Head of RSK, Maddur",Maddur Kasaba RSK Hub,+91 94808 XXXXX,Active / In Office,2,6,Synthetic,True
+STF_002,Smt. Bhavya K.M.,AAO (Assistant Agriculture Officer),Field Officer Sector 1,"Kadalur, Hemmanahalli, Maddur Rural",+91 94808 XXXXX,Available for Dispatch,3,8,Synthetic,True
+STF_003,Shri Manjunath C.,AAO (Assistant Agriculture Officer),Field Officer Sector 2,"Shivapura, Alur, Chikkarasinakere, Besagarahalli",+91 94808 XXXXX,On Field Duty,4,8,Synthetic,True
+STF_004,Kumari Anitha S.,AA (Agricultural Assistant),Technical Field Assistant,General Field Inspection & Soil Sampling,+91 94808 XXXXX,Available for Dispatch,1,10,Synthetic,True

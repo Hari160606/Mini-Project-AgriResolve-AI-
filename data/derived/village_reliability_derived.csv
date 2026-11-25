@@ -1,0 +1,8 @@
+village_id,village_name,total_satellite_passes,clear_satellite_passes,mean_cloud_cover_percent,rainfall_observations_count,data_completeness_ratio,overall_reliability_score,reliability_tier,data_type,is_synthetic
+V_MDR_001,Maddur (Kasaba),12,10,7.8,17,0.916,0.9,High,Derived,False
+V_MDR_002,Shivapura,12,12,7.6,17,1.0,0.99,High,Derived,False
+V_MDR_003,Kadalur,12,10,8.6,17,0.916,0.9,High,Derived,False
+V_MDR_004,Alur,12,11,8.9,17,0.959,0.95,High,Derived,False
+V_MDR_005,Hemmanahalli,12,11,8.2,17,0.959,0.95,High,Derived,False
+V_MDR_006,Chikkarasinakere,12,11,8.2,17,0.959,0.95,High,Derived,False
+V_MDR_007,Besagarahalli,12,11,10.1,17,0.959,0.94,High,Derived,False

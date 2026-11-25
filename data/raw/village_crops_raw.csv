@@ -1,0 +1,17 @@
+village_id,crop_id,crop_name,sown_area_ha,normal_yield_tons_ha,data_type,is_synthetic
+V_MDR_001,CRP_001,Sugarcane,310.0,95.0,Real,False
+V_MDR_001,CRP_002,Paddy,215.0,5.2,Real,False
+V_MDR_001,CRP_006,Banana,90.0,32.0,Real,False
+V_MDR_002,CRP_001,Sugarcane,220.0,98.0,Real,False
+V_MDR_002,CRP_004,Mulberry,140.0,40.0,Real,False
+V_MDR_003,CRP_002,Paddy,240.0,4.8,Real,False
+V_MDR_003,CRP_003,Ragi,190.0,2.6,Real,False
+V_MDR_003,CRP_005,Red Gram,60.0,1.1,Real,False
+V_MDR_004,CRP_001,Sugarcane,260.0,102.0,Real,False
+V_MDR_004,CRP_006,Banana,160.0,34.0,Real,False
+V_MDR_005,CRP_003,Ragi,380.0,2.4,Real,False
+V_MDR_005,CRP_005,Red Gram,200.0,0.95,Real,False
+V_MDR_006,CRP_001,Sugarcane,480.0,105.0,Real,False
+V_MDR_006,CRP_002,Paddy,410.0,5.4,Real,False
+V_MDR_007,CRP_001,Sugarcane,390.0,94.0,Real,False
+V_MDR_007,CRP_003,Ragi,360.0,2.5,Real,False

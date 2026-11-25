@@ -1,0 +1,8 @@
+inspection_id,village_id,village_name,inspection_date,days_since_last_inspection,inspecting_officer_id,field_observations,advisory_issued,resolution_status,data_type,is_synthetic
+INSP_2024_001,V_MDR_001,Maddur (Kasaba),2024-11-05,15,STF_002,Routine pest surveillance in sugarcane,Recommended tricho-cards for borer,Resolved,Synthetic,True
+INSP_2024_002,V_MDR_002,Shivapura,2024-10-16,35,STF_003,Sericulture mulberry health audit,Advised neem-oil spray against thrips,Resolved,Synthetic,True
+INSP_2024_003,V_MDR_003,Kadalur,2024-09-13,68,STF_002,Paddy early nursery check,"Minor blast observed, fungicide suggested",Follow-up Overdue,Synthetic,True
+INSP_2024_004,V_MDR_004,Alur,2024-11-08,12,STF_003,Banana pseudostem post-storm assessment,Estimated loss in 1.2 ha,Report Submitted,Synthetic,True
+INSP_2024_005,V_MDR_005,Hemmanahalli,2024-08-27,85,STF_002,Pre-sowing ragi seed distribution verification,Normal germination confirmed,Resolved,Synthetic,True
+INSP_2024_006,V_MDR_006,Chikkarasinakere,2024-10-27,24,STF_003,Canal distributary tail-end inspection,Water release coordinated with AEE Cauvery,Resolved,Synthetic,True
+INSP_2024_007,V_MDR_007,Besagarahalli,2024-11-12,8,STF_004,Sugarcane rust check,No pathogenic spread found,Resolved,Synthetic,True

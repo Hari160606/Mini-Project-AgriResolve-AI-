@@ -1,0 +1,120 @@
+observation_date,village_id,village_name,month,actual_rainfall_mm,normal_rainfall_mm,source_station,data_type,is_synthetic,rainfall_anomaly_mm,rainfall_anomaly_percent,rainfall_status
+2024-06-01,V_MDR_001,Maddur (Kasaba),6,19.39,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-1.41,-6.78,Normal
+2024-06-11,V_MDR_001,Maddur (Kasaba),6,19.9,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-0.9,-4.33,Normal
+2024-06-21,V_MDR_001,Maddur (Kasaba),6,14.83,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-5.97,-28.7,Deficit
+2024-07-01,V_MDR_001,Maddur (Kasaba),7,19.38,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-5.55,-22.26,Deficit
+2024-07-11,V_MDR_001,Maddur (Kasaba),7,25.14,24.93,IMD Gridded 0.25° Calibrated,Derived,False,0.21,0.84,Normal
+2024-07-21,V_MDR_001,Maddur (Kasaba),7,26.81,24.93,IMD Gridded 0.25° Calibrated,Derived,False,1.88,7.54,Normal
+2024-07-31,V_MDR_001,Maddur (Kasaba),7,20.89,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-4.04,-16.21,Normal
+2024-08-10,V_MDR_001,Maddur (Kasaba),8,32.55,29.53,IMD Gridded 0.25° Calibrated,Derived,False,3.02,10.23,Normal
+2024-08-20,V_MDR_001,Maddur (Kasaba),8,30.26,29.53,IMD Gridded 0.25° Calibrated,Derived,False,0.73,2.47,Normal
+2024-08-30,V_MDR_001,Maddur (Kasaba),8,23.2,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-6.33,-21.44,Deficit
+2024-09-09,V_MDR_001,Maddur (Kasaba),9,55.33,46.13,IMD Gridded 0.25° Calibrated,Derived,False,9.2,19.94,Normal
+2024-09-19,V_MDR_001,Maddur (Kasaba),9,51.13,46.13,IMD Gridded 0.25° Calibrated,Derived,False,5.0,10.84,Normal
+2024-09-29,V_MDR_001,Maddur (Kasaba),9,47.6,46.13,IMD Gridded 0.25° Calibrated,Derived,False,1.47,3.19,Normal
+2024-10-09,V_MDR_001,Maddur (Kasaba),10,70.43,54.03,IMD Gridded 0.25° Calibrated,Derived,False,16.4,30.35,Excess
+2024-10-19,V_MDR_001,Maddur (Kasaba),10,74.8,54.03,IMD Gridded 0.25° Calibrated,Derived,False,20.77,38.44,Excess
+2024-10-29,V_MDR_001,Maddur (Kasaba),10,56.98,54.03,IMD Gridded 0.25° Calibrated,Derived,False,2.95,5.46,Normal
+2024-11-08,V_MDR_001,Maddur (Kasaba),11,14.43,19.57,IMD Gridded 0.25° Calibrated,Derived,False,-5.14,-26.26,Deficit
+2024-06-01,V_MDR_002,Shivapura,6,20.21,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-0.59,-2.84,Normal
+2024-06-11,V_MDR_002,Shivapura,6,21.38,20.8,IMD Gridded 0.25° Calibrated,Derived,False,0.58,2.79,Normal
+2024-06-21,V_MDR_002,Shivapura,6,17.15,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-3.65,-17.55,Normal
+2024-07-01,V_MDR_002,Shivapura,7,25.14,24.93,IMD Gridded 0.25° Calibrated,Derived,False,0.21,0.84,Normal
+2024-07-11,V_MDR_002,Shivapura,7,23.26,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-1.67,-6.7,Normal
+2024-07-21,V_MDR_002,Shivapura,7,17.99,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-6.94,-27.84,Deficit
+2024-07-31,V_MDR_002,Shivapura,7,19.0,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-5.93,-23.79,Deficit
+2024-08-10,V_MDR_002,Shivapura,8,23.16,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-6.37,-21.57,Deficit
+2024-08-20,V_MDR_002,Shivapura,8,33.88,29.53,IMD Gridded 0.25° Calibrated,Derived,False,4.35,14.73,Normal
+2024-08-30,V_MDR_002,Shivapura,8,27.59,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-1.94,-6.57,Normal
+2024-09-09,V_MDR_002,Shivapura,9,55.84,46.13,IMD Gridded 0.25° Calibrated,Derived,False,9.71,21.05,Excess
+2024-09-19,V_MDR_002,Shivapura,9,59.08,46.13,IMD Gridded 0.25° Calibrated,Derived,False,12.95,28.07,Excess
+2024-09-29,V_MDR_002,Shivapura,9,55.07,46.13,IMD Gridded 0.25° Calibrated,Derived,False,8.94,19.38,Normal
+2024-10-09,V_MDR_002,Shivapura,10,73.53,54.03,IMD Gridded 0.25° Calibrated,Derived,False,19.5,36.09,Excess
+2024-10-19,V_MDR_002,Shivapura,10,70.97,54.03,IMD Gridded 0.25° Calibrated,Derived,False,16.94,31.35,Excess
+2024-10-29,V_MDR_002,Shivapura,10,61.13,54.03,IMD Gridded 0.25° Calibrated,Derived,False,7.1,13.14,Normal
+2024-11-08,V_MDR_002,Shivapura,11,16.84,19.57,IMD Gridded 0.25° Calibrated,Derived,False,-2.73,-13.95,Normal
+2024-06-01,V_MDR_003,Kadalur,6,11.1,20.8,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-9.7,-46.63,Deficit
+2024-06-11,V_MDR_003,Kadalur,6,6.66,20.8,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-14.14,-67.98,Severe Deficit
+2024-06-21,V_MDR_003,Kadalur,6,10.46,20.8,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-10.34,-49.71,Deficit
+2024-07-01,V_MDR_003,Kadalur,7,12.23,24.93,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-12.7,-50.94,Deficit
+2024-07-11,V_MDR_003,Kadalur,7,9.68,24.93,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-15.25,-61.17,Severe Deficit
+2024-07-21,V_MDR_003,Kadalur,7,13.04,24.93,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-11.89,-47.69,Deficit
+2024-07-31,V_MDR_003,Kadalur,7,5.83,24.93,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-19.1,-76.61,Severe Deficit
+2024-08-10,V_MDR_003,Kadalur,8,22.04,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-7.49,-25.36,Deficit
+2024-08-20,V_MDR_003,Kadalur,8,29.99,29.53,IMD Gridded 0.25° Calibrated,Derived,False,0.46,1.56,Normal
+2024-08-30,V_MDR_003,Kadalur,8,32.5,29.53,IMD Gridded 0.25° Calibrated,Derived,False,2.97,10.06,Normal
+2024-09-09,V_MDR_003,Kadalur,9,47.14,46.13,IMD Gridded 0.25° Calibrated,Derived,False,1.01,2.19,Normal
+2024-09-19,V_MDR_003,Kadalur,9,49.54,46.13,IMD Gridded 0.25° Calibrated,Derived,False,3.41,7.39,Normal
+2024-09-29,V_MDR_003,Kadalur,9,57.78,46.13,IMD Gridded 0.25° Calibrated,Derived,False,11.65,25.25,Excess
+2024-10-09,V_MDR_003,Kadalur,10,55.32,54.03,IMD Gridded 0.25° Calibrated,Derived,False,1.29,2.39,Normal
+2024-10-19,V_MDR_003,Kadalur,10,68.38,54.03,IMD Gridded 0.25° Calibrated,Derived,False,14.35,26.56,Excess
+2024-10-29,V_MDR_003,Kadalur,10,63.18,54.03,IMD Gridded 0.25° Calibrated,Derived,False,9.15,16.94,Normal
+2024-11-08,V_MDR_003,Kadalur,11,19.69,19.57,IMD Gridded 0.25° Calibrated,Derived,False,0.12,0.61,Normal
+2024-06-01,V_MDR_004,Alur,6,19.44,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-1.36,-6.54,Normal
+2024-06-11,V_MDR_004,Alur,6,14.97,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-5.83,-28.03,Deficit
+2024-06-21,V_MDR_004,Alur,6,16.66,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-4.14,-19.9,Deficit
+2024-07-01,V_MDR_004,Alur,7,23.9,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-1.03,-4.13,Normal
+2024-07-11,V_MDR_004,Alur,7,18.8,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-6.13,-24.59,Deficit
+2024-07-21,V_MDR_004,Alur,7,23.06,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-1.87,-7.5,Normal
+2024-07-31,V_MDR_004,Alur,7,19.0,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-5.93,-23.79,Deficit
+2024-08-10,V_MDR_004,Alur,8,21.37,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-8.16,-27.63,Deficit
+2024-08-20,V_MDR_004,Alur,8,23.04,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-6.49,-21.98,Deficit
+2024-08-30,V_MDR_004,Alur,8,26.55,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-2.98,-10.09,Normal
+2024-09-09,V_MDR_004,Alur,9,62.04,46.13,IMD Gridded 0.25° Calibrated,Derived,False,15.91,34.49,Excess
+2024-09-19,V_MDR_004,Alur,9,63.53,46.13,IMD Gridded 0.25° Calibrated,Derived,False,17.4,37.72,Excess
+2024-09-29,V_MDR_004,Alur,9,53.75,46.13,IMD Gridded 0.25° Calibrated,Derived,False,7.62,16.52,Normal
+2024-10-09,V_MDR_004,Alur,10,62.54,54.03,IMD Gridded 0.25° Calibrated,Derived,False,8.51,15.75,Normal
+2024-10-19,V_MDR_004,Alur,10,66.82,54.03,IMD Gridded 0.25° Calibrated,Derived,False,12.79,23.67,Excess
+2024-10-29,V_MDR_004,Alur,10,59.22,54.03,IMD Gridded 0.25° Calibrated,Derived,False,5.19,9.61,Normal
+2024-11-08,V_MDR_004,Alur,11,14.73,19.57,IMD Gridded 0.25° Calibrated,Derived,False,-4.84,-24.73,Deficit
+2024-06-01,V_MDR_005,Hemmanahalli,6,4.53,20.8,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-16.27,-78.22,Severe Deficit
+2024-06-11,V_MDR_005,Hemmanahalli,6,8.8,20.8,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-12.0,-57.69,Deficit
+2024-06-21,V_MDR_005,Hemmanahalli,6,10.07,20.8,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-10.73,-51.59,Deficit
+2024-07-01,V_MDR_005,Hemmanahalli,7,10.83,24.93,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-14.1,-56.56,Deficit
+2024-07-11,V_MDR_005,Hemmanahalli,7,10.67,24.93,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-14.26,-57.2,Deficit
+2024-07-21,V_MDR_005,Hemmanahalli,7,8.69,24.93,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-16.24,-65.14,Severe Deficit
+2024-07-31,V_MDR_005,Hemmanahalli,7,10.72,24.93,KSNDMC Hobli Telemetric Rain Gauge,Derived,False,-14.21,-57.0,Deficit
+2024-08-10,V_MDR_005,Hemmanahalli,8,23.45,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-6.08,-20.59,Deficit
+2024-08-20,V_MDR_005,Hemmanahalli,8,29.44,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-0.09,-0.3,Normal
+2024-08-30,V_MDR_005,Hemmanahalli,8,27.71,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-1.82,-6.16,Normal
+2024-09-09,V_MDR_005,Hemmanahalli,9,59.36,46.13,IMD Gridded 0.25° Calibrated,Derived,False,13.23,28.68,Excess
+2024-09-19,V_MDR_005,Hemmanahalli,9,45.77,46.13,IMD Gridded 0.25° Calibrated,Derived,False,-0.36,-0.78,Normal
+2024-09-29,V_MDR_005,Hemmanahalli,9,60.11,46.13,IMD Gridded 0.25° Calibrated,Derived,False,13.98,30.31,Excess
+2024-10-09,V_MDR_005,Hemmanahalli,10,68.04,54.03,IMD Gridded 0.25° Calibrated,Derived,False,14.01,25.93,Excess
+2024-10-19,V_MDR_005,Hemmanahalli,10,68.23,54.03,IMD Gridded 0.25° Calibrated,Derived,False,14.2,26.28,Excess
+2024-10-29,V_MDR_005,Hemmanahalli,10,63.41,54.03,IMD Gridded 0.25° Calibrated,Derived,False,9.38,17.36,Normal
+2024-11-08,V_MDR_005,Hemmanahalli,11,22.29,19.57,IMD Gridded 0.25° Calibrated,Derived,False,2.72,13.9,Normal
+2024-06-01,V_MDR_006,Chikkarasinakere,6,16.47,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-4.33,-20.82,Deficit
+2024-06-11,V_MDR_006,Chikkarasinakere,6,17.36,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-3.44,-16.54,Normal
+2024-06-21,V_MDR_006,Chikkarasinakere,6,16.69,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-4.11,-19.76,Deficit
+2024-07-01,V_MDR_006,Chikkarasinakere,7,17.99,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-6.94,-27.84,Deficit
+2024-07-11,V_MDR_006,Chikkarasinakere,7,27.59,24.93,IMD Gridded 0.25° Calibrated,Derived,False,2.66,10.67,Normal
+2024-07-21,V_MDR_006,Chikkarasinakere,7,18.35,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-6.58,-26.39,Deficit
+2024-07-31,V_MDR_006,Chikkarasinakere,7,24.26,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-0.67,-2.69,Normal
+2024-08-10,V_MDR_006,Chikkarasinakere,8,29.05,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-0.48,-1.63,Normal
+2024-08-20,V_MDR_006,Chikkarasinakere,8,25.69,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-3.84,-13.0,Normal
+2024-08-30,V_MDR_006,Chikkarasinakere,8,20.85,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-8.68,-29.39,Deficit
+2024-09-09,V_MDR_006,Chikkarasinakere,9,61.31,46.13,IMD Gridded 0.25° Calibrated,Derived,False,15.18,32.91,Excess
+2024-09-19,V_MDR_006,Chikkarasinakere,9,51.81,46.13,IMD Gridded 0.25° Calibrated,Derived,False,5.68,12.31,Normal
+2024-09-29,V_MDR_006,Chikkarasinakere,9,55.28,46.13,IMD Gridded 0.25° Calibrated,Derived,False,9.15,19.84,Normal
+2024-10-09,V_MDR_006,Chikkarasinakere,10,68.6,54.03,IMD Gridded 0.25° Calibrated,Derived,False,14.57,26.97,Excess
+2024-10-19,V_MDR_006,Chikkarasinakere,10,67.75,54.03,IMD Gridded 0.25° Calibrated,Derived,False,13.72,25.39,Excess
+2024-10-29,V_MDR_006,Chikkarasinakere,10,68.22,54.03,IMD Gridded 0.25° Calibrated,Derived,False,14.19,26.26,Excess
+2024-11-08,V_MDR_006,Chikkarasinakere,11,16.71,19.57,IMD Gridded 0.25° Calibrated,Derived,False,-2.86,-14.61,Normal
+2024-06-01,V_MDR_007,Besagarahalli,6,18.42,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-2.38,-11.44,Normal
+2024-06-11,V_MDR_007,Besagarahalli,6,16.8,20.8,IMD Gridded 0.25° Calibrated,Derived,False,-4.0,-19.23,Deficit
+2024-06-21,V_MDR_007,Besagarahalli,6,23.63,20.8,IMD Gridded 0.25° Calibrated,Derived,False,2.83,13.61,Normal
+2024-07-01,V_MDR_007,Besagarahalli,7,20.69,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-4.24,-17.01,Normal
+2024-07-11,V_MDR_007,Besagarahalli,7,19.1,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-5.83,-23.39,Deficit
+2024-07-21,V_MDR_007,Besagarahalli,7,18.9,24.93,IMD Gridded 0.25° Calibrated,Derived,False,-6.03,-24.19,Deficit
+2024-07-31,V_MDR_007,Besagarahalli,7,28.04,24.93,IMD Gridded 0.25° Calibrated,Derived,False,3.11,12.47,Normal
+2024-08-10,V_MDR_007,Besagarahalli,8,25.34,29.53,IMD Gridded 0.25° Calibrated,Derived,False,-4.19,-14.19,Normal
+2024-08-20,V_MDR_007,Besagarahalli,8,30.42,29.53,IMD Gridded 0.25° Calibrated,Derived,False,0.89,3.01,Normal
+2024-08-30,V_MDR_007,Besagarahalli,8,32.82,29.53,IMD Gridded 0.25° Calibrated,Derived,False,3.29,11.14,Normal
+2024-09-09,V_MDR_007,Besagarahalli,9,58.37,46.13,IMD Gridded 0.25° Calibrated,Derived,False,12.24,26.53,Excess
+2024-09-19,V_MDR_007,Besagarahalli,9,51.89,46.13,IMD Gridded 0.25° Calibrated,Derived,False,5.76,12.49,Normal
+2024-09-29,V_MDR_007,Besagarahalli,9,63.38,46.13,IMD Gridded 0.25° Calibrated,Derived,False,17.25,37.39,Excess
+2024-10-09,V_MDR_007,Besagarahalli,10,69.24,54.03,IMD Gridded 0.25° Calibrated,Derived,False,15.21,28.15,Excess
+2024-10-19,V_MDR_007,Besagarahalli,10,57.13,54.03,IMD Gridded 0.25° Calibrated,Derived,False,3.1,5.74,Normal
+2024-10-29,V_MDR_007,Besagarahalli,10,71.36,54.03,IMD Gridded 0.25° Calibrated,Derived,False,17.33,32.07,Excess
+2024-11-08,V_MDR_007,Besagarahalli,11,20.4,19.57,IMD Gridded 0.25° Calibrated,Derived,False,0.83,4.24,Normal

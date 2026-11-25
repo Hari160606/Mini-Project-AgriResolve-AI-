@@ -1,0 +1,36 @@
+complaint_id,village_id,village_name,farmer_pseudonym,survey_number,crop_affected,issue_category,issue_description,affected_area_hectares,urgency_level,reported_date,status,data_type,is_synthetic
+CMP_2024_0027,V_MDR_005,Hemmanahalli,Farmer_318,114/1,Ragi,Drought Stress,Prolonged dry spell causing wilting and delayed tillering,1.12,High,2024-09-16,Open,Synthetic,True
+CMP_2024_0013,V_MDR_003,Kadalur,Farmer_532,164/1,Paddy,Disease,Blast lesions on upper leaves following high humidity,2.82,High,2024-09-21,Under Review,Synthetic,True
+CMP_2024_0018,V_MDR_004,Alur,Farmer_170,148/2,Sugarcane,Pest Attack,Early shoot borer infestation in young ratoon canes,0.82,High,2024-09-22,Open,Synthetic,True
+CMP_2024_0022,V_MDR_005,Hemmanahalli,Farmer_785,136/2,Ragi,Disease,Finger blast symptoms on emerging ear heads,0.76,Medium,2024-09-23,Pending Inspection,Synthetic,True
+CMP_2024_0034,V_MDR_007,Besagarahalli,Farmer_202,30/2,Sugarcane,Water Stress,Tail-end canal water shortage causing leaf drying,2.8,Medium,2024-09-24,Pending Inspection,Synthetic,True
+CMP_2024_0007,V_MDR_002,Shivapura,Farmer_266,106/A,Mulberry,Disease,Tukra (mealybug induced curling) affecting shoot tips,2.18,Medium,2024-09-27,Open,Synthetic,True
+CMP_2024_0001,V_MDR_001,Maddur (Kasaba),Farmer_204,185/1,Sugarcane,Disease,Red rot fungal discoloration observed near lower nodes,1.41,Critical,2024-09-29,Pending Inspection,Synthetic,True
+CMP_2024_0023,V_MDR_005,Hemmanahalli,Farmer_294,36/1,Red Gram,Pest Attack,Pod borer (Helicoverpa armigera) damaging green pods,3.4,High,2024-10-01,Pending Inspection,Synthetic,True
+CMP_2024_0016,V_MDR_003,Kadalur,Farmer_754,141/2,Red Gram,Pest Attack,Pod borer (Helicoverpa armigera) damaging green pods,3.72,High,2024-10-07,Open,Synthetic,True
+CMP_2024_0033,V_MDR_007,Besagarahalli,Farmer_760,88/B,Ragi,Drought Stress,Prolonged dry spell causing wilting and delayed tillering,1.48,Critical,2024-10-11,Under Review,Synthetic,True
+CMP_2024_0009,V_MDR_003,Kadalur,Farmer_334,20/A,Red Gram,Disease,Fusarium wilt causing sudden vascular drying,3.62,High,2024-10-13,Under Review,Synthetic,True
+CMP_2024_0032,V_MDR_006,Chikkarasinakere,Farmer_697,156/A,Vegetables,Pest Attack,Whitefly and fruit borer damage in tomato and brinjal,2.79,High,2024-10-16,Under Review,Synthetic,True
+CMP_2024_0035,V_MDR_007,Besagarahalli,Farmer_478,84/2,Sugarcane,Disease,Red rot fungal discoloration observed near lower nodes,3.76,High,2024-10-18,Under Review,Synthetic,True
+CMP_2024_0015,V_MDR_003,Kadalur,Farmer_564,12/A,Red Gram,Disease,Fusarium wilt causing sudden vascular drying,0.91,High,2024-10-19,Pending Inspection,Synthetic,True
+CMP_2024_0008,V_MDR_002,Shivapura,Farmer_573,109/A,Sugarcane,Pest Attack,Woolly aphid cluster spread across leaf under-surface,2.48,Medium,2024-10-19,Pending Inspection,Synthetic,True
+CMP_2024_0010,V_MDR_003,Kadalur,Farmer_835,92/2,Paddy,Disease,Blast lesions on upper leaves following high humidity,3.88,High,2024-10-19,Pending Inspection,Synthetic,True
+CMP_2024_0004,V_MDR_001,Maddur (Kasaba),Farmer_194,109/1,Sugarcane,Pest Attack,Woolly aphid cluster spread across leaf under-surface,4.04,Medium,2024-10-20,Under Review,Synthetic,True
+CMP_2024_0026,V_MDR_005,Hemmanahalli,Farmer_927,152/1,Red Gram,Pest Attack,Pod borer (Helicoverpa armigera) damaging green pods,3.74,Critical,2024-10-20,Open,Synthetic,True
+CMP_2024_0006,V_MDR_002,Shivapura,Farmer_333,86/1,Mulberry,Pest Attack,Thrips and leaf roller damaging leaf yield for silkworms,3.11,Critical,2024-10-22,Open,Synthetic,True
+CMP_2024_0020,V_MDR_005,Hemmanahalli,Farmer_223,75/2,Red Gram,Disease,Fusarium wilt causing sudden vascular drying,2.12,High,2024-10-24,Open,Synthetic,True
+CMP_2024_0030,V_MDR_006,Chikkarasinakere,Farmer_973,147/2,Paddy,Pest Attack,Yellow stem borer causing dead heart symptoms in vegetative stage,2.66,High,2024-10-25,Open,Synthetic,True
+CMP_2024_0021,V_MDR_005,Hemmanahalli,Farmer_107,30/1,Ragi,Pest Attack,Armyworm larval leaf feeding observed after monsoon break,2.55,Medium,2024-10-28,Open,Synthetic,True
+CMP_2024_0005,V_MDR_001,Maddur (Kasaba),Farmer_649,43/B,Vegetables,Disease,Damping off and powdery mildew in seedling nurseries,3.49,Medium,2024-10-29,Open,Synthetic,True
+CMP_2024_0017,V_MDR_004,Alur,Farmer_214,104/A,Sugarcane,Pest Attack,Early shoot borer infestation in young ratoon canes,2.72,High,2024-11-01,Open,Synthetic,True
+CMP_2024_0014,V_MDR_003,Kadalur,Farmer_981,14/1,Red Gram,Disease,Fusarium wilt causing sudden vascular drying,2.46,High,2024-11-02,Pending Inspection,Synthetic,True
+CMP_2024_0028,V_MDR_006,Chikkarasinakere,Farmer_565,85/B,Paddy,Nutrient Deficiency,Zinc deficiency induced chlorosis in flooded parcels,1.48,Low,2024-11-02,Pending Inspection,Synthetic,True
+CMP_2024_0025,V_MDR_005,Hemmanahalli,Farmer_559,47/B,Red Gram,Pest Attack,Pod borer (Helicoverpa armigera) damaging green pods,1.42,High,2024-11-05,Open,Synthetic,True
+CMP_2024_0003,V_MDR_001,Maddur (Kasaba),Farmer_106,52/B,Sugarcane,Water Stress,Tail-end canal water shortage causing leaf drying,2.68,Medium,2024-11-07,Under Review,Synthetic,True
+CMP_2024_0002,V_MDR_001,Maddur (Kasaba),Farmer_716,18/2,Sugarcane,Pest Attack,Early shoot borer infestation in young ratoon canes,0.85,High,2024-11-08,Pending Inspection,Synthetic,True
+CMP_2024_0012,V_MDR_003,Kadalur,Farmer_241,142/B,Red Gram,Disease,Fusarium wilt causing sudden vascular drying,1.84,High,2024-11-08,Open,Synthetic,True
+CMP_2024_0024,V_MDR_005,Hemmanahalli,Farmer_155,184/1,Red Gram,Disease,Fusarium wilt causing sudden vascular drying,2.02,High,2024-11-09,Open,Synthetic,True
+CMP_2024_0019,V_MDR_004,Alur,Farmer_533,66/2,Paddy,Disease,Blast lesions on upper leaves following high humidity,1.48,High,2024-11-14,Pending Inspection,Synthetic,True
+CMP_2024_0029,V_MDR_006,Chikkarasinakere,Farmer_693,150/1,Paddy,Disease,Blast lesions on upper leaves following high humidity,1.6,High,2024-11-16,Pending Inspection,Synthetic,True
+CMP_2024_0011,V_MDR_003,Kadalur,Farmer_352,155/A,Ragi,Pest Attack,Armyworm larval leaf feeding observed after monsoon break,2.2,Medium,2024-11-17,Pending Inspection,Synthetic,True
+CMP_2024_0031,V_MDR_006,Chikkarasinakere,Farmer_982,72/B,Paddy,Disease,Blast lesions on upper leaves following high humidity,0.75,Critical,2024-11-19,Open,Synthetic,True

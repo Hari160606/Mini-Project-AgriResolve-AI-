@@ -1,0 +1,8 @@
+village_id,village_name,lgd_code,taluk,district,state,rsk_name,rsk_code,rsk_mapping_status,latitude,longitude,total_area_hectares,cultivated_area_hectares,soil_type,primary_irrigation_source,major_crops,data_type,is_synthetic
+V_MDR_001,Maddur (Kasaba),614488,Maddur,Mandya,Karnataka,Maddur Kasaba RSK,KA_MDR_01,Simulated (Administrative Prototype),12.5844,77.0425,820.5,615,Red sandy loam,Canal (Shimsha command) + Borewell,"Sugarcane, Paddy, Vegetables",Real,False
+V_MDR_002,Shivapura,614490,Maddur,Mandya,Karnataka,Maddur Kasaba RSK,KA_MDR_01,Simulated (Administrative Prototype),12.578,77.031,450.25,360,Clayey loam,Canal + Tank,"Sugarcane, Mulberry (Sericulture)",Real,False
+V_MDR_003,Kadalur,614498,Maddur,Mandya,Karnataka,Maddur Kasaba RSK,KA_MDR_01,Simulated (Administrative Prototype),12.612,77.068,630.0,490,Red sandy loam,Rainfed + Borewell,"Paddy, Ragi, Pulses",Real,False
+V_MDR_004,Alur,614502,Maddur,Mandya,Karnataka,Maddur Kasaba RSK,KA_MDR_01,Simulated (Administrative Prototype),12.552,77.025,510.75,420,Alluvial / Loam,River lift + Canal,"Sugarcane, Banana, Paddy",Real,False
+V_MDR_005,Hemmanahalli,614510,Maddur,Mandya,Karnataka,Maddur Kasaba RSK,KA_MDR_01,Simulated (Administrative Prototype),12.605,77.015,740.0,580,Red sandy loam,Rainfed,"Ragi, Maize, Groundnut",Real,False
+V_MDR_006,Chikkarasinakere,614515,Maddur,Mandya,Karnataka,Maddur Kasaba RSK,KA_MDR_01,Simulated (Administrative Prototype),12.523,77.085,1120.0,890,Heavy clay loam,Canal + Tank,"Paddy, Sugarcane, Vegetables",Real,False
+V_MDR_007,Besagarahalli,614522,Maddur,Mandya,Karnataka,Maddur Kasaba RSK,KA_MDR_01,Simulated (Administrative Prototype),12.535,76.985,980.0,750,Red gravelly loam,Borewell + Rainfed,"Sugarcane, Ragi, Fodder crops",Real,False

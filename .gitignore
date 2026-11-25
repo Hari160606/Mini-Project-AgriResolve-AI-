@@ -1,0 +1,61 @@
+# AgriResolve AI - Repository Configuration
+
+# Python & Virtual Environment
+venv/
+.venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Secrets & Environment variables (NEVER COMMIT)
+.env
+*.env.local
+*.key
+*.pem
+credentials.json
+token.json
+service_account.json
+
+# IDE & OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Large Model weights, FAISS indices and vector stores
+*.faiss
+*.index
+models/cache/
+*.bin
+*.pt
+*.onnx
+
+# Temporary & Log files
+*.log
+logs/
+.pytest_cache/
+.ipynb_checkpoints/
+tmp/
+scratch/
+*.db
+*.sqlite3
+
