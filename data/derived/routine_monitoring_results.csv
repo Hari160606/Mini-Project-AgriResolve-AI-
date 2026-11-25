@@ -1,0 +1,8 @@
+village_id,village_name,routine_flag,routine_risk_score,rainfall_deficit_risk,ndvi_decline_risk,inspection_recency_days,recency_risk,data_reliability_score,explanation,data_type,is_synthetic
+V_MDR_003,Kadalur,False,37.95,0.0,61.3,68,100.0,0.9,Vegetation index drop of -8.5% (NDVI: 0.34); Inspection overdue (68 days since last visit),Derived,False
+V_MDR_005,Hemmanahalli,False,15.75,0.0,0.0,85,100.0,0.95,Inspection overdue (85 days since last visit),Derived,False
+V_MDR_002,Shivapura,False,8.9,0.0,0.0,35,58.3,0.99,Parameters within normal seasonal range.,Derived,False
+V_MDR_001,Maddur (Kasaba),False,8.48,0.0,9.2,15,25.0,0.9,Parameters within normal seasonal range.,Derived,False
+V_MDR_006,Chikkarasinakere,False,6.75,0.0,0.0,24,40.0,0.95,Parameters within normal seasonal range.,Derived,False
+V_MDR_007,Besagarahalli,False,5.01,0.0,6.0,8,13.3,0.94,Parameters within normal seasonal range.,Derived,False
+V_MDR_004,Alur,False,3.75,0.0,0.0,12,20.0,0.95,Parameters within normal seasonal range.,Derived,False

@@ -1,0 +1,29 @@
+priority_id,village_name,factor,contribution_pts
+PRI_V_MDR_003,Kadalur,Reported Distress,32.5
+PRI_V_MDR_003,Kadalur,Routine Agro Risk,15.2
+PRI_V_MDR_003,Kadalur,Transit Accessibility,5.8
+PRI_V_MDR_003,Kadalur,Data Reliability,9.0
+PRI_V_MDR_005,Hemmanahalli,Reported Distress,34.5
+PRI_V_MDR_005,Hemmanahalli,Routine Agro Risk,6.3
+PRI_V_MDR_005,Hemmanahalli,Transit Accessibility,5.1
+PRI_V_MDR_005,Hemmanahalli,Data Reliability,9.5
+PRI_V_MDR_002,Shivapura,Reported Distress,22.8
+PRI_V_MDR_002,Shivapura,Routine Agro Risk,3.6
+PRI_V_MDR_002,Shivapura,Transit Accessibility,8.8
+PRI_V_MDR_002,Shivapura,Data Reliability,9.9
+PRI_V_MDR_001,Maddur (Kasaba),Reported Distress,27.9
+PRI_V_MDR_001,Maddur (Kasaba),Routine Agro Risk,3.4
+PRI_V_MDR_001,Maddur (Kasaba),Transit Accessibility,9.1
+PRI_V_MDR_001,Maddur (Kasaba),Data Reliability,9.0
+PRI_V_MDR_006,Chikkarasinakere,Reported Distress,24.9
+PRI_V_MDR_006,Chikkarasinakere,Routine Agro Risk,2.7
+PRI_V_MDR_006,Chikkarasinakere,Transit Accessibility,3.7
+PRI_V_MDR_006,Chikkarasinakere,Data Reliability,9.5
+PRI_V_MDR_007,Besagarahalli,Reported Distress,24.2
+PRI_V_MDR_007,Besagarahalli,Routine Agro Risk,2.0
+PRI_V_MDR_007,Besagarahalli,Transit Accessibility,4.4
+PRI_V_MDR_007,Besagarahalli,Data Reliability,9.4
+PRI_V_MDR_004,Alur,Reported Distress,19.7
+PRI_V_MDR_004,Alur,Routine Agro Risk,1.5
+PRI_V_MDR_004,Alur,Transit Accessibility,7.4
+PRI_V_MDR_004,Alur,Data Reliability,9.5

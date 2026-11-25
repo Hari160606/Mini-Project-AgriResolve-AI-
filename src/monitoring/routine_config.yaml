@@ -1,0 +1,26 @@
+# AgriResolve AI - Routine Monitoring Configuration
+# Configurable thresholds for satellite and meteorological deviation detection
+
+thresholds:
+  rainfall:
+    deficit_mild_percent: -20.0
+    deficit_severe_percent: -50.0
+    weight: 0.35
+
+  ndvi:
+    drop_warning_percent: -12.0
+    drop_severe_percent: -20.0
+    absolute_stress_cutoff: 0.30
+    weight: 0.35
+
+  inspection_recency:
+    warning_days: 45
+    critical_days: 60
+    weight: 0.15
+
+  data_reliability:
+    min_acceptable_score: 0.70
+    weight: 0.15
+
+weights:
+  routine_risk_threshold: 45.0  # Scores >= 45 flag village for routine inspection
