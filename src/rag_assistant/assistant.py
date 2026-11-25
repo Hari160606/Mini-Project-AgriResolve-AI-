@@ -5,8 +5,8 @@ Retrieves ground-truth agronomic advisories from official Karnataka agricultural
 - ICAR Crop Protection Manuals
 
 Supports:
-1. Local Ollama LLM (default offline mode)
-2. Google Gemini API (optional hybrid mode when configured)
+1. Google Gemini API (gemini-3.5-flash-lite / gemini-3.8-flash)
+2. Local Ollama LLM (offline mode)
 3. Deterministic ground-truth retrieval index with page & document citations
 """
 
@@ -82,10 +82,11 @@ OFFICIAL_GUIDELINES_KB = [
     }
 ]
 
-def query_rag_assistant(crop: str, query: str, use_llm: bool = False):
+def query_rag_assistant(crop: str, query: str, use_llm: bool = True):
     """
     Retrieves the most relevant official agricultural advisory chunk
-    and constructs a cited response.
+    and synthesizes an answer using Google Gemini (gemini-3.5-flash-lite)
+    while citing the official UAS Bengaluru source.
     """
     crop_lower = crop.lower()
     matches = [doc for doc in OFFICIAL_GUIDELINES_KB if crop_lower in doc["crop"].lower()]
@@ -98,30 +99,40 @@ def query_rag_assistant(crop: str, query: str, use_llm: bool = False):
         }
         
     doc = matches[0]
-    
-    # If Gemini API key is configured and requested, we can use Gemini to synthesize
     gemini_key = os.getenv("GEMINI_API_KEY", "")
+    
+    # Live Gemini Generative Synthesis
     if use_llm and gemini_key:
         try:
             from google import genai
             client = genai.Client(api_key=gemini_key)
             prompt = (
-                f"You are AgriResolve AI Field Assistant. Based strictly on this official extract:\n"
-                f"Title: {doc['title']}\nSource: {doc['source']}\nGuideline: {doc['advisory']}\n\n"
-                f"Farmer inquiry: {query}\n"
-                f"Answer concisely with actionable field steps and explicitly include the source citation: {doc['citation']}."
+                f"You are AgriResolve AI Field Assistant for Agriculture Officers in Mandya, Karnataka.\n"
+                f"Ground-Truth Document Extract:\n"
+                f"- Document: {doc['title']}\n"
+                f"- Source: {doc['source']}\n"
+                f"- Official Advisory: {doc['advisory']}\n"
+                f"- Symptoms: {doc['symptoms']}\n"
+                f"- ETL: {doc['economic_threshold_level']}\n\n"
+                f"Field Inquiry: {query}\n\n"
+                f"Respond with:\n"
+                f"1. A direct 2-line diagnostic assessment\n"
+                f"2. 3 bullet points of immediate field actions (chemical & cultural)\n"
+                f"3. Explicitly state: 'Verified from: {doc['citation']}'"
             )
             response = client.models.generate_content(
-                model="gemini-2.0-flash",
+                model="gemini-3.5-flash-lite",
                 contents=prompt
             )
-            return {
-                "answer": response.text,
-                "citation": doc["citation"],
-                "retrieval_status": "Synthesized via Gemini 2.0 Flash"
-            }
+            if response and response.text:
+                return {
+                    "answer": response.text,
+                    "citation": doc["citation"],
+                    "retrieval_status": "Synthesized with Google Gemini AI (gemini-3.5-flash-lite)"
+                }
         except Exception as e:
-            pass  # Fall through to deterministic ground-truth response
+            # Fall back to ground-truth text if temporary rate limit or network issue occurs
+            pass
             
     # Deterministic ground-truth answer
     answer = (
@@ -142,3 +153,4 @@ if __name__ == "__main__":
     result = query_rag_assistant("Paddy", "How do I control yellow stem borer?")
     print(result["answer"])
     print("\nCitation:", result["citation"])
+    print("Mode:", result["retrieval_status"])
