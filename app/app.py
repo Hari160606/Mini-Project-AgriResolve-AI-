@@ -1,16 +1,21 @@
 """
 AgriResolve AI - Main Streamlit Application Entrypoint
 Provides role-based switching between:
-1. Agriculture Officer (AO) Decision Dashboard
+1. Agriculture Officer (AO) Command Dashboard
 2. Assistant Agriculture Officer (AAO / AA) Field Interface
-3. AI Field Inspection Assistant (RAG)
+3. AI Field Inspection Assistant (Hybrid Gemini / Local Knowledge Base)
 """
 
+import os
+from pathlib import Path
 import streamlit as st
 import pandas as pd
-from pathlib import Path
 import plotly.express as px
 import plotly.graph_objects as go
+from dotenv import load_dotenv
+
+# Load environment variables (.env)
+load_dotenv()
 
 st.set_page_config(
     page_title="AgriResolve AI - Agricultural Inspection Decision Support",
@@ -18,6 +23,30 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Custom Clean Styling for Professional Government UI
+st.markdown("""
+<style>
+    /* Metric Cards */
+    div[data-testid="stMetricValue"] {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #2e7d32;
+    }
+    div[data-testid="stMetric"] {
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        padding: 12px 18px;
+        border-radius: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    /* Headers */
+    h1, h2, h3 {
+        color: #1e293b;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # -------------------------------------------------------------
 # Data Loading Helpers
@@ -53,6 +82,70 @@ def load_all_data():
 data = load_all_data()
 
 # -------------------------------------------------------------
+# Robust Universal Map Renderer (Supports Plotly 6 & 7+)
+# -------------------------------------------------------------
+def render_village_map(map_df):
+    """
+    Renders an interactive map across different Plotly versions
+    (scatter_map in Plotly 7+ or scatter_mapbox in older versions).
+    """
+    if hasattr(px, "scatter_map"):
+        fig = px.scatter_map(
+            map_df,
+            lat="latitude",
+            lon="longitude",
+            hover_name="village_name",
+            hover_data={
+                "combined_priority_score": True,
+                "rank_order": True,
+                "recommendation_action": True,
+                "latitude": False,
+                "longitude": False
+            },
+            color="combined_priority_score",
+            size="combined_priority_score",
+            color_continuous_scale="Reds",
+            size_max=24,
+            zoom=11.2,
+            center={"lat": 12.575, "lon": 77.035},
+            map_style="open-street-map"
+        )
+    elif hasattr(px, "scatter_mapbox"):
+        fig = px.scatter_mapbox(
+            map_df,
+            lat="latitude",
+            lon="longitude",
+            hover_name="village_name",
+            hover_data={
+                "combined_priority_score": True,
+                "rank_order": True,
+                "recommendation_action": True,
+                "latitude": False,
+                "longitude": False
+            },
+            color="combined_priority_score",
+            size="combined_priority_score",
+            color_continuous_scale="Reds",
+            size_max=24,
+            zoom=11.2,
+            center={"lat": 12.575, "lon": 77.035},
+            mapbox_style="open-street-map"
+        )
+    else:
+        fig = px.scatter(
+            map_df,
+            x="longitude",
+            y="latitude",
+            text="village_name",
+            color="combined_priority_score",
+            size="combined_priority_score",
+            color_continuous_scale="Reds",
+            title="Village Coordinates & Priority Scores"
+        )
+    fig.update_layout(height=450, margin={"r": 0, "t": 30, "l": 0, "b": 0})
+    return fig
+
+# -------------------------------------------------------------
 # Sidebar Navigation & Transparency Badges
 # -------------------------------------------------------------
 st.sidebar.image("https://img.icons8.com/color/96/wheat.png", width=64)
@@ -62,27 +155,48 @@ st.sidebar.caption("Government of Karnataka | Department of Agriculture")
 # Mandated Transparency Banners (Rule A2.5 & A2.6)
 st.sidebar.markdown(
     """
-    <div style="background-color: #fff3cd; padding: 10px; border-radius: 6px; border-left: 4px solid #ffeeba; margin-bottom: 12px;">
-        <span style="color: #856404; font-size: 12px; font-weight: bold;">⚠️ PROTOCOL NOTICE:</span><br>
-        <span style="color: #856404; font-size: 11px;">• RSK Mapping: <b>Simulated Administrative Prototype</b></span><br>
-        <span style="color: #856404; font-size: 11px;">• Complaints & Staff: <b>Synthetically Tagged</b></span><br>
-        <span style="color: #856404; font-size: 11px;">• Remote Sensing: <b>Real Sentinel-2 / IMD</b></span>
+    <div style="background-color: #fffbeb; padding: 12px; border-radius: 8px; border: 1px solid #fde68a; margin-bottom: 15px;">
+        <span style="color: #92400e; font-size: 12px; font-weight: bold;">⚠️ PROTOCOL NOTICE:</span><br>
+        <span style="color: #92400e; font-size: 11px;">• RSK Mapping: <b>Simulated Administrative Prototype</b></span><br>
+        <span style="color: #92400e; font-size: 11px;">• Complaints & Staff: <b>Synthetically Tagged</b></span><br>
+        <span style="color: #92400e; font-size: 11px;">• Remote Sensing: <b>Real Sentinel-2 / IMD</b></span>
     </div>
     """,
     unsafe_allow_html=True
 )
 
 role = st.sidebar.radio(
-    "Select Operating Role:",
-    ["Agriculture Officer (AO) - Command Dashboard", "Assistant Agriculture Officer (AAO) - Field Workspace", "AI Field Assistant (Package of Practices)"]
+    "Navigation & Role Selection:",
+    [
+        "Agriculture Officer (AO) - Command Dashboard",
+        "Assistant Agriculture Officer (AAO) - Field Workspace",
+        "AI Field Assistant (Package of Practices)"
+    ]
 )
 
 st.sidebar.markdown("---")
+
+# API Key Status in Sidebar
+gemini_key_env = os.getenv("GEMINI_API_KEY", "")
+google_maps_key_env = os.getenv("GOOGLE_MAPS_API_KEY", "")
+
+with st.sidebar.expander("🔑 API Key Configuration", expanded=False):
+    st.caption("Add keys here or via .env to enable real-time Gemini AI and Google Cloud Services.")
+    input_gemini_key = st.text_input("Gemini API Key:", value=gemini_key_env, type="password")
+    input_maps_key = st.text_input("Google Maps API Key:", value=google_maps_key_env, type="password")
+    if st.button("Save Keys to Session"):
+        if input_gemini_key:
+            os.environ["GEMINI_API_KEY"] = input_gemini_key
+            st.success("Gemini API key active!")
+        if input_maps_key:
+            os.environ["GOOGLE_MAPS_API_KEY"] = input_maps_key
+            st.success("Google Maps API key active!")
+
 st.sidebar.info(
     "**Maddur Kasaba RSK (`KA_MDR_01`)**\n"
     "• Taluk: Maddur\n"
     "• District: Mandya\n"
-    "• Target Villages: 7 Revenue Villages\n"
+    "• Monitored: 7 Revenue Villages\n"
     "• Operational Radius: 15 km"
 )
 
@@ -95,36 +209,24 @@ if role == "Agriculture Officer (AO) - Command Dashboard":
     
     # Top KPI Metrics
     c1, c2, c3, c4 = st.columns(4)
-    c1.metric("Monitored Villages", len(data["villages"]), "7 Clusters")
+    c1.metric("Monitored Villages", len(data["villages"]), "7 Revenue Villages")
     tier1_count = len(data["priorities"][data["priorities"]["recommendation_action"].str.contains("Tier 1")])
-    c2.metric("Tier-1 Immediate Dispatches", tier1_count, "Urgent Priority", delta_color="inverse")
-    c3.metric("Total Active Complaints", len(data["complaints"]), "Across 7 Villages")
-    c4.metric("Active Field Staff", len(data["staff"]), "3 Officers Available")
+    c2.metric("Tier-1 Immediate Dispatches", tier1_count, "Urgent Priority")
+    c3.metric("Total Active Complaints", len(data["complaints"]), "Across Cluster")
+    c4.metric("Active Field Officers", len(data["staff"]), "3 Available")
     
     st.markdown("---")
     
     # Spatial Village Intelligence Map
-    st.subheader("🗺️ RSK Village Intelligence & Priority Map")
-    st.caption("Satellite and field distress overlay. Circle sizes indicate composite priority scores.")
+    st.subheader("🗺️ RSK Village Intelligence & Spatial Priority Map")
+    st.caption("Live geographical layout of the 7 villages. Circle sizes and colors indicate composite priority scores.")
     
-    map_df = data["villages"].merge(data["priorities"][["village_id", "combined_priority_score", "rank_order", "recommendation_action"]], on="village_id")
-    
-    fig_map = px.scatter_mapbox(
-        map_df,
-        lat="latitude",
-        lon="longitude",
-        hover_name="village_name",
-        hover_data={"combined_priority_score": True, "rank_order": True, "recommendation_action": True, "latitude": False, "longitude": False},
-        color="combined_priority_score",
-        size="combined_priority_score",
-        color_continuous_scale="Reds",
-        size_max=22,
-        zoom=11.2,
-        center={"lat": 12.575, "lon": 77.035},
-        mapbox_style="carto-positron",
-        title="Maddur RSK Spatial Intelligence"
+    map_df = data["villages"].merge(
+        data["priorities"][["village_id", "combined_priority_score", "rank_order", "recommendation_action"]],
+        on="village_id"
     )
-    fig_map.update_layout(height=450, margin={"r": 0, "t": 40, "l": 0, "b": 0})
+    
+    fig_map = render_village_map(map_df)
     st.plotly_chart(fig_map, use_container_width=True)
     
     # Ranked Priority List & Explainability
@@ -170,7 +272,11 @@ if role == "Agriculture Officer (AO) - Command Dashboard":
     
     with col_alloc1:
         st.write("##### Current Field Staff Availability")
-        st.dataframe(data["staff"][["name", "role", "jurisdiction", "status", "active_inspections_count"]], use_container_width=True, hide_index=True)
+        st.dataframe(
+            data["staff"][["name", "role", "jurisdiction", "status", "active_inspections_count"]],
+            use_container_width=True,
+            hide_index=True
+        )
         
     with col_alloc2:
         st.write("##### Assign Field Inspection (AO Action)")
@@ -191,7 +297,7 @@ elif role == "Assistant Agriculture Officer (AAO) - Field Workspace":
     st.title("🚜 AAO / AA Field Inspection Workspace")
     st.markdown("Field-oriented interface for mobile inspections, farmer distress logging, and advisory execution.")
     
-    tab1, tab2 = st.tabs(["📝 Register Farmer Issue", "📌 My Assigned Inspections"])
+    tab1, tab2 = st.tabs(["📝 Register Farmer Grievance", "📌 My Assigned Inspections"])
     
     with tab1:
         st.subheader("Register Field Grievance")
@@ -221,39 +327,40 @@ elif role == "Assistant Agriculture Officer (AAO) - Field Workspace":
         )
 
 # -------------------------------------------------------------
-# 3. AI Field Assistant (RAG)
+# 3. AI Field Assistant (RAG Engine)
 # -------------------------------------------------------------
 else:
     st.title("🤖 AI Field Inspection Assistant")
-    st.markdown("Ground-truth diagnostic guidance powered by the **University of Agricultural Sciences (UAS) Bengaluru Package of Practices**.")
+    st.markdown("Ground-truth diagnostic guidance powered by the **University of Agricultural Sciences (UAS) Bengaluru Package of Practices** and **Google Gemini**.")
     
     col_rag1, col_rag2 = st.columns([1, 2])
     
     with col_rag1:
-        st.write("##### Diagnostic Context")
+        st.write("##### Diagnostic Query")
         q_crop = st.selectbox("Crop Under Inspection:", ["Paddy", "Sugarcane", "Ragi", "Mulberry"])
-        q_issue = st.selectbox("Observed Symptom:", ["Dead hearts in stem (Stem Borer)", "Blast spots on leaves", "Early shoot borer", "Leaf reddening / drying"])
-        st.write("##### Model Engine")
-        st.radio("LLM Backend:", ["Local Ollama (Mistral 7B) - Default", "Google Gemini 1.5/2.0 Flash (Hybrid)"])
+        q_issue = st.selectbox("Observed Symptom:", [
+            "Dead hearts in stem (Stem Borer)",
+            "Blast spots on leaves",
+            "Early shoot borer in sugarcane",
+            "Leaf rolling / drought stress in ragi",
+            "Thrips & leaf curling in mulberry"
+        ])
         
+        custom_question = st.text_input("Ask a custom question to the AI:", placeholder="e.g. Chemical dosage for blast")
+        
+        # Check if Gemini key is present
+        has_gemini = bool(os.getenv("GEMINI_API_KEY", ""))
+        if has_gemini:
+            st.success("🟢 Google Gemini API Connected")
+        else:
+            st.info("ℹ️ Using Official Karnataka PoP Knowledge Base (Add Gemini API key in sidebar for live generative reasoning)")
+            
     with col_rag2:
-        st.write("##### Agricultural Advisory & Actionable Checklist")
-        st.markdown(
-            f"""
-            ### Diagnostic Advisory for **{q_crop}**
-            **Symptom**: {q_issue}  
-            **Source Authority**: *UAS Bangalore Package of Practices (Zone 6: Southern Dry Zone)*
-            
-            #### 🔍 Field Inspection Checklist:
-            1. **Examine 20 consecutive hills/stems** at 5 random spots across the parcel.
-            2. Check for egg masses on the lower surface of upper leaves.
-            3. Measure soil moisture in root zone (confirm whether canal release was delayed).
-            
-            #### 💊 Recommended Management:
-            - **Biological Control**: Release *Trichogramma chilonis* egg parasitoids @ 50,000/ha at 10-day intervals.
-            - **Chemical Intervention (if ETL exceeded > 5% dead hearts)**: Spray Cartap Hydrochloride 50% SP @ 2.0 g/litre of water or Chlorantraniliprole 18.5% SC @ 0.3 ml/litre.
-            - **Agronomic Practice**: Avoid excessive nitrogenous fertilizers during peak infestation.
-            
-            > **Official Citation**: *PoP UAS Bengaluru, Kharif Cereals & Commercial Crops Bulletin, Section 4.2.1, pp. 48-52.*
-            """
-        )
+        st.write("##### Verified Agronomic Advisory & Actionable Checklist")
+        from src.rag_assistant.assistant import query_rag_assistant
+        
+        search_query = custom_question if custom_question else q_issue
+        res = query_rag_assistant(q_crop, search_query, use_llm=has_gemini)
+        
+        st.markdown(res["answer"])
+        st.caption(f"**Source Document Citation**: {res['citation']} | Mode: {res['retrieval_status']}")
