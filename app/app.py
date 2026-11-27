@@ -39,11 +39,22 @@ from app.voice_ui import render_farmer_voice_chatbot  # noqa: E402
 from db.load_data import (  # noqa: E402
     escalate_complaint_to_ao,
     fetch_dashboard_tables,
+    load_all_data as sync_db_tables,
     save_farmer_complaint,
     save_inspection_dispatch,
     save_inspection_dispatches_batch,
     update_dispatch_status,
 )
+from src.ingestion.ingest_ndvi import (  # noqa: E402
+    DEFAULT_EE_PROJECT_ID,
+    get_ee_ndvi_tile_url,
+    get_latest_s2_window,
+    ingest_ndvi,
+    resolve_ee_project_id,
+)
+from src.monitoring.routine import run_routine_monitoring  # noqa: E402
+from src.preprocessing.cleaning_and_derivation import clean_and_derive  # noqa: E402
+from src.priority_engine.engine import run_priority_engine  # noqa: E402
 
 user = get_current_user()
 st.set_page_config(
@@ -67,6 +78,16 @@ def load_all_data() -> tuple[dict[str, pd.DataFrame], str]:
     return fetch_dashboard_tables()
 
 
+@st.cache_data(ttl=1800, show_spinner=False)
+def load_ee_ndvi_layer(project_id: str) -> tuple[dict[str, object] | None, str | None]:
+    """Fetch and cache the live Google Earth Engine Sentinel-2 NDVI tile overlay."""
+    try:
+        return get_ee_ndvi_tile_url(project_id=project_id), None
+    except Exception as exc:
+        return None, str(exc)
+
+
+_ACTIVE_EE_PROJECT = resolve_ee_project_id(use_default=True) or DEFAULT_EE_PROJECT_ID
 data, data_source = load_all_data()
 
 
@@ -146,7 +167,13 @@ def _build_map_segments(map_df: pd.DataFrame, route_mode: str) -> list[dict[str,
     return segments
 
 
-def _render_google_map(api_key: str, map_df: pd.DataFrame, segments: list[dict[str, object]], height: int = 460) -> None:
+def _render_google_map(
+    api_key: str,
+    map_df: pd.DataFrame,
+    segments: list[dict[str, object]],
+    ee_tile_url: str | None = None,
+    height: int = 460,
+) -> None:
     ordered = map_df.sort_values("rank_order").reset_index(drop=True)
     villages_payload = [
         {
@@ -163,6 +190,7 @@ def _render_google_map(api_key: str, map_df: pd.DataFrame, segments: list[dict[s
     ]
     villages_json = json.dumps(villages_payload)
     segments_json = json.dumps(segments)
+    ee_tile_json = json.dumps(ee_tile_url or "")
 
     html = f"""
     <div id="rsk-map" style="height:{height}px;width:100%;border-radius:12px;border:2px solid #2d6a4f;"></div>
@@ -173,6 +201,21 @@ def _render_google_map(api_key: str, map_df: pd.DataFrame, segments: list[dict[s
           center: {{lat: 12.585, lng: 77.043}},
           mapTypeId: "roadmap"
         }});
+        const eeTileTemplate = {ee_tile_json};
+        if (eeTileTemplate) {{
+          const eeLayer = new google.maps.ImageMapType({{
+            getTileUrl: function(coord, zoom) {{
+              return eeTileTemplate
+                .replace("{{z}}", zoom)
+                .replace("{{x}}", coord.x)
+                .replace("{{y}}", coord.y);
+            }},
+            tileSize: new google.maps.Size(256, 256),
+            opacity: 0.62,
+            name: "Sentinel-2 NDVI"
+          }});
+          map.overlayMapTypes.insertAt(0, eeLayer);
+        }}
         const info = new google.maps.InfoWindow();
         const bounds = new google.maps.LatLngBounds();
         const villages = {villages_json};
@@ -252,12 +295,16 @@ def _render_google_map(api_key: str, map_df: pd.DataFrame, segments: list[dict[s
     st.iframe(html, height=height + 16, alt="Interactive village priority and inter-location distance map")
 
 
-def render_village_map(map_df: pd.DataFrame, route_mode: str) -> go.Figure | None:
+def render_village_map(
+    map_df: pd.DataFrame,
+    route_mode: str,
+    ee_tile_url: str | None = None,
+) -> go.Figure | None:
     """Render Google Maps JS when GOOGLE_MAPS_API_KEY is set, otherwise Plotly OpenStreetMap with distances."""
     segments = _build_map_segments(map_df, route_mode)
     maps_key = os.getenv("GOOGLE_MAPS_API_KEY", "").strip()
     if maps_key:
-        _render_google_map(maps_key, map_df, segments)
+        _render_google_map(maps_key, map_df, segments, ee_tile_url=ee_tile_url)
         return None
 
     ordered = map_df.sort_values("rank_order").reset_index(drop=True)
@@ -319,6 +366,10 @@ def render_village_map(map_df: pd.DataFrame, route_mode: str) -> go.Figure | Non
             title="Village Coordinates & Priority Scores",
         )
     fig.update_layout(height=470, margin={"r": 0, "t": 12, "l": 0, "b": 0})
+    if ee_tile_url and hasattr(px, "scatter_map"):
+        fig.update_layout(
+            map_layers=[{"sourcetype": "raster", "source": [ee_tile_url], "opacity": 0.62, "below": "traces"}]
+        )
     return fig
 
 
@@ -336,7 +387,11 @@ def _google_maps_directions_url(assigned_df: pd.DataFrame) -> str:
     return "https://www.google.com/maps/dir/?" + urlencode(params)
 
 
-def _render_aao_directions_map(assigned_df: pd.DataFrame, height: int = 440) -> None:
+def _render_aao_directions_map(
+    assigned_df: pd.DataFrame,
+    ee_tile_url: str | None = None,
+    height: int = 440,
+) -> None:
     """Render Google Maps route directions ONLY to AO-assigned villages in priority order."""
     stops_payload = [
         {
@@ -356,6 +411,7 @@ def _render_aao_directions_map(assigned_df: pd.DataFrame, height: int = 440) -> 
     maps_key = os.getenv("GOOGLE_MAPS_API_KEY", "").strip()
     if maps_key:
         stops_json = json.dumps(stops_payload)
+        ee_tile_json = json.dumps(ee_tile_url or "")
         html = f"""
         <div id="aao-route-map" style="height:{height}px;width:100%;border-radius:12px;border:2px solid #1b4332;"></div>
         <div id="aao-route-status" style="font-family:sans-serif;font-size:12px;color:#365243;margin-top:6px;"></div>
@@ -368,6 +424,21 @@ def _render_aao_directions_map(assigned_df: pd.DataFrame, height: int = 440) -> 
               center: origin,
               mapTypeId: "roadmap"
             }});
+            const eeTileTemplate = {ee_tile_json};
+            if (eeTileTemplate) {{
+              const eeLayer = new google.maps.ImageMapType({{
+                getTileUrl: function(coord, zoom) {{
+                  return eeTileTemplate
+                    .replace("{{z}}", zoom)
+                    .replace("{{x}}", coord.x)
+                    .replace("{{y}}", coord.y);
+                }},
+                tileSize: new google.maps.Size(256, 256),
+                opacity: 0.60,
+                name: "Sentinel-2 NDVI"
+              }});
+              map.overlayMapTypes.insertAt(0, eeLayer);
+            }}
             const info = new google.maps.InfoWindow();
             const statusEl = document.getElementById("aao-route-status");
 
@@ -610,8 +681,9 @@ if selected_view == "Command Dashboard (AO)":
     c4.metric("Active AO Dispatches", len(all_dispatches), "Assigned to Field")
 
     st.subheader(":material/map: Spatial Priority Map & Inter-Location Distances")
+    map_ctrl1, map_ctrl2 = st.columns([3, 2], vertical_alignment="center")
     route_mode = (
-        st.segmented_control(
+        map_ctrl1.segmented_control(
             "Map distance overlay",
             ["Priority Route (Rank #1 → #7)", "From RSK Hub (Maddur)"],
             default="Priority Route (Rank #1 → #7)",
@@ -620,14 +692,31 @@ if selected_view == "Command Dashboard (AO)":
         )
         or "Priority Route (Rank #1 → #7)"
     )
+    ee_overlay_on = map_ctrl2.toggle(
+        "🛰️ Live Earth Engine Sentinel-2 NDVI Overlay",
+        value=True,
+        key="ao_ee_overlay",
+    )
+
+    ee_layer_info, ee_layer_err = load_ee_ndvi_layer(_ACTIVE_EE_PROJECT) if ee_overlay_on else (None, None)
+    ee_tile_url = str(ee_layer_info["tile_url"]) if (ee_overlay_on and ee_layer_info) else None
 
     map_df = data["villages"].merge(
         data["priorities"][["village_id", "combined_priority_score", "rank_order", "recommendation_action", "road_distance_km"]],
         on="village_id",
     )
-    fig_map = render_village_map(map_df, route_mode)
+    fig_map = render_village_map(map_df, route_mode, ee_tile_url=ee_tile_url)
     if fig_map is not None:
         st.plotly_chart(fig_map, width="stretch")
+
+    if ee_overlay_on and ee_layer_info:
+        st.caption(
+            f"🛰️ Live Earth Engine NDVI (`{_ACTIVE_EE_PROJECT}`) · "
+            f"{ee_layer_info['image_count']} Sentinel-2 L2A scenes ({ee_layer_info['start_date']} to {ee_layer_info['end_date']}) · "
+            "Scale: 🔴 0.10 (Stressed/Bare) → 🟡 0.45 → 🟢 0.85 (Dense Healthy Crop)"
+        )
+    elif ee_overlay_on and ee_layer_err:
+        st.caption(f"Earth Engine tile overlay unavailable offline ({ee_layer_err}). Showing village priority map.")
 
     with st.expander("Inter-location distance matrix (km)", expanded=False):
         st.caption("Straight-line geodesic distances (km) between each village in the Maddur Kasaba RSK cluster.")
@@ -675,6 +764,67 @@ if selected_view == "Command Dashboard (AO)":
     )
     fig_bar.update_layout(height=340, showlegend=False, template="plotly_white")
     st.plotly_chart(fig_bar, width="stretch")
+
+    st.subheader("🛰️ Google Earth Engine — Sentinel-2 NDVI Intelligence")
+    ndvi_df = data["ndvi"].copy()
+    latest_ndvi_df = ndvi_df.sort_values("observation_date").groupby("village_id").last().reset_index()
+    min_ndvi_row = latest_ndvi_df.loc[latest_ndvi_df["mean_ndvi"].idxmin()]
+
+    with st.container(border=True):
+        ee_c1, ee_c2, ee_c3, ee_c4 = st.columns(4)
+        ee_c1.metric("Earth Engine Project", _ACTIVE_EE_PROJECT, "COPERNICUS/S2_SR_HARMONIZED")
+        ee_c2.metric("Latest Cluster Avg NDVI", f"{latest_ndvi_df['mean_ndvi'].mean():.3f}", "10m Sentinel-2 MSI")
+        ee_c3.metric("Lowest Village NDVI", f"{min_ndvi_row['mean_ndvi']:.3f}", str(min_ndvi_row["village_name"]))
+        ee_c4.metric("NDVI Observations", len(ndvi_df), f"{ndvi_df['observation_date'].nunique()} Composite Dates")
+
+        sync_col1, sync_col2 = st.columns([2.2, 1.8], vertical_alignment="bottom")
+        ndvi_window = sync_col1.selectbox(
+            "Satellite composite window:",
+            ["Latest Available 120 Days (Live)", "Kharif 2024 Season (2024-06-05 to 2024-11-20)"],
+            key="ee_sync_window",
+        )
+        if sync_col2.button(
+            "Sync Live Sentinel-2 NDVI & Refresh Priorities",
+            icon=":material/satellite_alt:",
+            type="primary",
+            width="stretch",
+        ):
+            with st.spinner(f"Fetching Sentinel-2 L2A NDVI from Google Earth Engine ({_ACTIVE_EE_PROJECT})..."):
+                try:
+                    if ndvi_window.startswith("Latest"):
+                        s_date, e_date = get_latest_s2_window(_ACTIVE_EE_PROJECT, lookback_days=120)
+                    else:
+                        s_date, e_date = "2024-06-05", "2024-11-20"
+                    ingest_ndvi(
+                        use_ee=True,
+                        project_id=_ACTIVE_EE_PROJECT,
+                        fallback_to_offline=False,
+                        start_date=s_date,
+                        end_date=e_date,
+                    )
+                    clean_and_derive()
+                    run_routine_monitoring()
+                    run_priority_engine()
+                    sync_db_tables()
+                    load_all_data.clear()
+                    load_ee_ndvi_layer.clear()
+                    st.success(f"Synced live Sentinel-2 NDVI ({s_date} to {e_date}) and updated priorities!")
+                    st.rerun()
+                except Exception as exc:
+                    st.error(f"Earth Engine sync failed: {exc}")
+
+        fig_ndvi = px.line(
+            ndvi_df.sort_values("observation_date"),
+            x="observation_date",
+            y="mean_ndvi",
+            color="village_name",
+            markers=True,
+            title="Sentinel-2 NDVI Vegetation Trend Across Maddur RSK Villages",
+            labels={"observation_date": "Observation Date", "mean_ndvi": "Mean NDVI", "village_name": "Village"},
+        )
+        fig_ndvi.add_hline(y=0.35, line_dash="dash", line_color="#c62828", annotation_text="Vegetation Stress Threshold (0.35)")
+        fig_ndvi.update_layout(height=340, template="plotly_white", yaxis_range=[0.05, 0.95])
+        st.plotly_chart(fig_ndvi, width="stretch")
 
     st.subheader("👷 Assign AAOs by Priority Order")
     field_staff = data["staff"][data["staff"]["role"].apply(_extract_short_role).isin({"AAO", "AA"})].reset_index(drop=True)
@@ -890,9 +1040,16 @@ elif selected_view == "Field Workspace (AAO / AA)":
             m4.metric("Completed Visits", completed_cnt, f"of {len(my_plan)} Assigned")
 
             st.subheader(":material/directions: Google Maps Directions (Assigned Priority Order Only)")
+            aao_ee_overlay = st.toggle(
+                "🛰️ Overlay Live Earth Engine Sentinel-2 NDVI",
+                value=True,
+                key="aao_ee_overlay",
+            )
+            aao_ee_info, _ = load_ee_ndvi_layer(_ACTIVE_EE_PROJECT) if aao_ee_overlay else (None, None)
+            aao_ee_tile = str(aao_ee_info["tile_url"]) if (aao_ee_overlay and aao_ee_info) else None
             active_stops = my_plan[my_plan["status"] != "Completed"]
             route_stops = active_stops if not active_stops.empty else my_plan
-            _render_aao_directions_map(route_stops)
+            _render_aao_directions_map(route_stops, ee_tile_url=aao_ee_tile)
             st.link_button(
                 "Open Turn-by-Turn Route in Google Maps",
                 _google_maps_directions_url(route_stops),
@@ -928,10 +1085,17 @@ elif selected_view == "Field Workspace (AAO / AA)":
                 hide_index=True,
             )
 
+            latest_ndvi_map = (
+                data["ndvi"].sort_values("observation_date").groupby("village_name")["mean_ndvi"].last().to_dict()
+                if not data["ndvi"].empty
+                else {}
+            )
             for idx, row in enumerate(my_plan.itertuples(), start=1):
                 v_name = str(row.village_name)
                 v_factors = data["factors"][data["factors"]["village_name"] == v_name]
                 v_complaints = all_complaints[all_complaints["village_name"] == v_name]
+                v_ndvi = latest_ndvi_map.get(v_name)
+                ndvi_text = f"{v_ndvi:.3f}" if v_ndvi is not None else "N/A"
                 with st.container(border=True):
                     h1, h2 = st.columns([4, 1.5], vertical_alignment="center")
                     h1.markdown(
@@ -942,7 +1106,7 @@ elif selected_view == "Field Workspace (AAO / AA)":
                     st.markdown(
                         f"- **AO Instructions:** {row.instructions or 'Conduct standard crop-health & grievance verification.'}\n"
                         f"- **Justification:** {row.human_explanation}\n"
-                        f"- **Village Profile:** Crops: *{row.major_crops}* | Soil: *{row.soil_type}* | Irrigation: *{row.primary_irrigation_source}*\n"
+                        f"- **Village Profile:** Crops: *{row.major_crops}* | Soil: *{row.soil_type}* | Latest Sentinel-2 NDVI: **{ndvi_text}**\n"
                         f"- **Logistics:** {row.road_distance_km} km from RSK (~{int(row.est_travel_time_mins)} mins) | Target Date: **{row.target_date}** | Active Complaints: **{len(v_complaints)}**"
                     )
                     if not v_factors.empty:

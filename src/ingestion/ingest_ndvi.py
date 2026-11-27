@@ -1,11 +1,12 @@
 """
-AgriResolve AI - Sentinel-2 NDVI Observation Ingestion
+AgriResolve AI - Sentinel-2 NDVI Observation Ingestion & Live Earth Engine Tile Provider
 Ingests Copernicus Sentinel-2 MSI 10m surface reflectance NDVI observations
 for the 7 villages in Maddur Taluk (Mandya District, Karnataka).
 
 Supports:
 1. Live Google Earth Engine (COPERNICUS/S2_SR_HARMONIZED) via ee.Initialize(project=...)
-2. Automatic offline fallback dataset when Earth Engine is unauthenticated or offline.
+2. Live Earth Engine NDVI map tile generation (getMapId) for web map overlays
+3. Automatic offline fallback dataset when Earth Engine is unauthenticated or offline.
 
 Saves raw datasets into data/raw/ndvi_raw.xlsx and data/raw/ndvi_raw.csv.
 """
@@ -21,20 +22,23 @@ import numpy as np
 import pandas as pd
 from dotenv import load_dotenv
 
+DEFAULT_EE_PROJECT_ID = "gmp-demo-project-960615751"
 _PLACEHOLDER_PROJECT_IDS = {"", "your_gee_project_id_here", "your-gee-project-id"}
 
 _DEFAULT_VILLAGES: list[tuple[str, str, float, float]] = [
-    ("V_MDR_001", "Maddur (Kasaba)", 12.5839, 77.0434),
+    ("V_MDR_001", "Maddur (Kasaba)", 12.5920, 77.0290),
     ("V_MDR_002", "Shivapura", 12.6038, 77.0524),
-    ("V_MDR_003", "Kadalur", 12.6246, 77.0736),
-    ("V_MDR_004", "Alur", 12.5644, 77.0689),
-    ("V_MDR_005", "Hemmanahalli", 12.6344, 77.0546),
+    ("V_MDR_003", "Kadalur", 12.6345, 77.0752),
+    ("V_MDR_004", "Alur", 12.5741, 77.0684),
+    ("V_MDR_005", "Hemmanahalli", 12.6292, 77.0565),
     ("V_MDR_006", "Chikkarasinakere", 12.5104, 77.0402),
-    ("V_MDR_007", "Besagarahalli", 12.6364, 76.9960),
+    ("V_MDR_007", "Besagarahalli", 12.6389, 76.9933),
 ]
 
+_NDVI_PALETTE = ["a50026", "f46d43", "fee08b", "a6d96a", "1a9850", "006837"]
 
-def resolve_ee_project_id(project_id: str | None = None) -> str | None:
+
+def resolve_ee_project_id(project_id: str | None = None, use_default: bool = False) -> str | None:
     """Resolve the Google Earth Engine Cloud project ID from argument or .env."""
     load_dotenv(override=False)
     candidates = [
@@ -46,12 +50,12 @@ def resolve_ee_project_id(project_id: str | None = None) -> str | None:
         cleaned = (candidate or "").strip()
         if cleaned and cleaned not in _PLACEHOLDER_PROJECT_IDS:
             return cleaned
-    return None
+    return DEFAULT_EE_PROJECT_ID if use_default else None
 
 
 def initialize_earth_engine(project_id: str | None = None) -> str:
     """Initialize the Earth Engine client with the configured Cloud project ID."""
-    resolved_project = resolve_ee_project_id(project_id)
+    resolved_project = resolve_ee_project_id(project_id, use_default=True)
     if not resolved_project:
         raise ValueError(
             "No Earth Engine project ID configured. Set EE_PROJECT_ID or GEE_PROJECT_ID in .env."
@@ -91,10 +95,70 @@ def _load_villages(villages_csv: Path = Path("data/raw/villages_raw.csv")) -> li
 def _mask_s2_clouds_and_add_ndvi(image: Any) -> Any:
     """Mask Sentinel-2 cloud/shadow pixels using Scene Classification Layer (SCL) and add NDVI."""
     scl = image.select("SCL")
-    # Keep vegetation (4), non-vegetated/bare soil (5), water (6), unclassified/low-prob cloud (7)
     clear_mask = scl.eq(4).Or(scl.eq(5)).Or(scl.eq(6)).Or(scl.eq(7))
     ndvi = image.normalizedDifference(["B8", "B4"]).rename("NDVI")
     return image.updateMask(clear_mask).addBands(ndvi).select(["NDVI"])
+
+
+def _region_bounds_from_villages() -> Any:
+    import ee
+
+    villages = _load_villages()
+    points = [ee.Geometry.Point([lon, lat]).buffer(1500) for _, _, lat, lon in villages]
+    return ee.Geometry.MultiPoint([[lon, lat] for _, _, lat, lon in villages]).bounds().buffer(3000)
+
+
+def get_latest_s2_window(project_id: str | None = None, lookback_days: int = 120) -> tuple[str, str]:
+    """Query Earth Engine for the most recent available Sentinel-2 scene date over Maddur."""
+    initialize_earth_engine(project_id)
+    import ee
+
+    bounds = _region_bounds_from_villages()
+    latest_img = (
+        ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+        .filterBounds(bounds)
+        .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 70))
+        .sort("system:time_start", False)
+        .first()
+    )
+    ts_ms = latest_img.get("system:time_start").getInfo()
+    end_dt = pd.to_datetime(int(ts_ms), unit="ms", utc=True).tz_localize(None).normalize()
+    start_dt = end_dt - pd.Timedelta(days=lookback_days)
+    return start_dt.strftime("%Y-%m-%d"), end_dt.strftime("%Y-%m-%d")
+
+
+def get_ee_ndvi_tile_url(
+    project_id: str | None = None,
+    start_date: str | None = None,
+    end_date: str | None = None,
+) -> dict[str, Any]:
+    """Return a live Google Earth Engine raster tile URL for Sentinel-2 NDVI over Maddur."""
+    resolved_project = initialize_earth_engine(project_id)
+    import ee
+
+    if not start_date or not end_date:
+        start_date, end_date = get_latest_s2_window(resolved_project, lookback_days=90)
+
+    bounds = _region_bounds_from_villages()
+    collection = (
+        ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+        .filterBounds(bounds)
+        .filterDate(start_date, (pd.Timestamp(end_date) + pd.Timedelta(days=1)).strftime("%Y-%m-%d"))
+        .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 70))
+    )
+    image_count = int(collection.size().getInfo())
+    if image_count == 0:
+        raise RuntimeError(f"No Sentinel-2 scenes available in Earth Engine for {start_date}..{end_date}.")
+
+    ndvi_composite = collection.map(_mask_s2_clouds_and_add_ndvi).median().clip(bounds)
+    map_id = ndvi_composite.getMapId({"min": 0.1, "max": 0.85, "palette": _NDVI_PALETTE})
+    return {
+        "tile_url": map_id["tile_fetcher"].url_format,
+        "project": resolved_project,
+        "image_count": image_count,
+        "start_date": start_date,
+        "end_date": end_date,
+    }
 
 
 def fetch_sentinel2_ndvi_ee(
@@ -236,16 +300,22 @@ def ingest_ndvi(
     use_ee: bool | None = None,
     project_id: str | None = None,
     fallback_to_offline: bool = True,
+    start_date: str = "2024-06-05",
+    end_date: str = "2024-11-20",
 ) -> pd.DataFrame:
     """Ingest Sentinel-2 NDVI from Earth Engine when configured, with offline fallback."""
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
-    should_use_ee = (resolve_ee_project_id(project_id) is not None) if use_ee is None else use_ee
+    should_use_ee = (resolve_ee_project_id(project_id, use_default=True) is not None) if use_ee is None else use_ee
     df: pd.DataFrame | None = None
 
     if should_use_ee:
         try:
-            df = fetch_sentinel2_ndvi_ee(project_id=project_id)
+            df = fetch_sentinel2_ndvi_ee(
+                project_id=project_id,
+                start_date=start_date,
+                end_date=end_date,
+            )
             print(f"Fetched {len(df)} live Sentinel-2 NDVI rows from Google Earth Engine.")
         except Exception as exc:
             if not fallback_to_offline:
