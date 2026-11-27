@@ -52,7 +52,7 @@ class TestEndToEndWorkflow(unittest.TestCase):
         self.assertEqual(len(df_priorities), 7)
         self.assertEqual(list(df_priorities["rank_order"]), [1, 2, 3, 4, 5, 6, 7])
         self.assertTrue("Inspect First" in df_priorities.iloc[0]["recommendation_action"])
-        self.assertTrue(len(df_factors) >= 28)  # 4 factors * 7 villages
+        self.assertTrue(len(df_factors) >= 21)  # 3 factors * 7 villages
 
     def test_05_rag_assistant_retrieval(self):
         """Verify that the AI Field Assistant returns official UAS Bangalore citations."""

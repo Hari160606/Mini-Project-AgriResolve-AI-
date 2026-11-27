@@ -9,13 +9,17 @@ psycopg2-binary>=2.9.9
 SQLAlchemy>=2.0.30
 
 # Web Application & Visualization
-streamlit>=1.35.0
+streamlit>=1.55.0
 plotly>=5.20.0
 
 # Geospatial & Weather
 requests>=2.31.0
 python-dotenv>=1.0.1
 earthengine-api>=0.1.400
+geopandas>=1.0.0
+
+# Voice Notes (Kannada & Regional Languages)
+gTTS>=2.5.0
 
 # Machine Learning & Priority Engine
 scikit-learn>=1.4.0

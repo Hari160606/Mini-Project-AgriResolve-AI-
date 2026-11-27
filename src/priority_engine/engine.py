@@ -16,9 +16,8 @@ import numpy as np
 
 def run_priority_engine(
     data_dir: str = "data",
-    routine_weight: float = 0.40,
-    reported_weight: float = 0.40,
-    accessibility_weight: float = 0.10,
+    routine_weight: float = 0.45,
+    reported_weight: float = 0.45,
     reliability_weight: float = 0.10,
     staff_weekly_capacity: int = 4  # Typical AO team capacity for high-priority villages
 ):
@@ -57,19 +56,17 @@ def run_priority_engine(
         else:
             combined_agro_risk = (routine_score * 0.5) + (reported_score * 0.5)
             
-        # Accessibility factor (Closer villages get slight priority for immediate dispatch, max 10 pts)
-        # Scale: 0 km -> 10 pts; 15 km -> 2 pts
+        # Road distance is retained as logistics metadata only (excluded from priority score)
         dist_km = float(row["road_distance_km"])
-        access_score = float(np.clip(10.0 - (dist_km * 0.5), 1.0, 10.0))
         
         # Reliability factor (High reliability gets full confidence, max 10 pts)
         rel_score = float(row["overall_reliability_score"])
         rel_weighted = rel_score * 10.0
         
-        # Final Combined Priority Score (0 to 100)
+        # Final Combined Priority Score (0 to 100) across 3 parameters:
+        # 1. Reported Distress (45%), 2. Routine Agro Risk (45%), 3. Data Reliability (10%)
         final_score = round(
             (combined_agro_risk * (routine_weight + reported_weight)) +
-            (access_score * (accessibility_weight * 10.0)) +
             (rel_weighted * (reliability_weight * 10.0)),
             2
         )
@@ -82,8 +79,6 @@ def run_priority_engine(
             reasons.append("Notable satellite NDVI vegetative drop")
         if row["inspection_recency_days"] >= 45:
             reasons.append(f"Field visit overdue ({row['inspection_recency_days']} days)")
-        if dist_km <= 5.0:
-            reasons.append(f"Immediate proximity to RSK ({dist_km} km)")
             
         narrative = ". ".join(reasons) + "." if reasons else "Routine monitoring indicates low immediate priority."
         
@@ -103,11 +98,10 @@ def run_priority_engine(
             "is_synthetic": False
         })
         
-        # Store individual factor contributions for explainability chart
+        # Store individual factor contributions for explainability chart (3 parameters)
         factor_records.extend([
             {"priority_id": f"PRI_{v_id}", "village_name": v_name, "factor": "Reported Distress", "contribution_pts": round(reported_score * reported_weight, 1)},
             {"priority_id": f"PRI_{v_id}", "village_name": v_name, "factor": "Routine Agro Risk", "contribution_pts": round(routine_score * routine_weight, 1)},
-            {"priority_id": f"PRI_{v_id}", "village_name": v_name, "factor": "Transit Accessibility", "contribution_pts": round(access_score * accessibility_weight * 10.0, 1)},
             {"priority_id": f"PRI_{v_id}", "village_name": v_name, "factor": "Data Reliability", "contribution_pts": round(rel_weighted * reliability_weight * 10.0, 1)}
         ])
         
